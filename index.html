@@ -46,7 +46,7 @@
     margin:0;
   }
 
-  /* ---------- Encabezado ---------- */
+  
   .header{
     text-align:center;
     margin-bottom:48px;
@@ -69,7 +69,7 @@
     font-size:16px;
   }
 
-  /* ---------- Fotos ---------- */
+
   .fotos{
     display:flex;
     flex-wrap:wrap;
@@ -116,7 +116,7 @@
     background:#0e1a13;
   }
 
-  /* ---------- Poema grande (álbum) ---------- */
+  
   .pagina-libro{
     background:var(--paper);
     color:var(--text-on-paper);
@@ -153,7 +153,7 @@
     color:var(--rose);
   }
 
-  /* ---------- Botón "Más poemas" ---------- */
+
   .btn-menu-wrap{
     text-align:center;
     margin-top:40px;
@@ -179,7 +179,7 @@
     outline-offset:3px;
   }
 
-  /* ---------- Vista Menú de poemas ---------- */
+ 
   #vista-menu{ display:none; }
   .volver-album{
     background:none;
@@ -234,7 +234,7 @@
   .item-poema:hover{ color:var(--gold); }
   .item-poema:hover .adorno{ color:var(--gold); }
 
-  /* ---------- Overlay: página abierta del libro ---------- */
+ 
   #overlay-poema{
     display:none;
     position:fixed;
@@ -331,7 +331,7 @@
 
 <div class="stage">
 
-  <!-- ============ VISTA: ÁLBUM ============ -->
+
   <div id="vista-album">
     <div class="header">
       <span class="eyebrow-ornament">❦</span>
@@ -434,7 +434,7 @@
     
   </div>
 
-  <!-- ============ VISTA: MENÚ DE POEMAS ============ -->
+
   <div id="vista-menu">
     <button class="volver-album" onclick="irAAlbum()">← volver</button>
     <div class="header" style="margin-bottom:30px;">
@@ -442,22 +442,20 @@
     </div>
 
     <ul class="lista-poemas" id="lista-poemas">
-      <!-- Esta lista se genera sola en el script, a partir del arreglo "poemas" -->
+    
     </ul>
   </div>
 
 </div>
 
-<!-- ============ OVERLAY: PÁGINA ABIERTA DEL LIBRO ============ -->
 <div id="overlay-poema">
   <div class="hoja" id="contenido-hoja">
-    <!-- El contenido se inserta desde JS según el poema elegido -->
+  
   </div>
 </div>
 
 <script>
-  // ---- Contenido de cada poema del menú ----
-  // Para agregar/quitar poemas solo edita este arreglo (titulo + html).
+
   const poemas = [
   {
     "titulo": "Amor eterno",
@@ -557,7 +555,7 @@
     overlay.classList.remove('abierto');
   }
 
-  // Cerrar overlay con la tecla Escape
+  
   document.addEventListener('keydown', (e) => {
     if(e.key === 'Escape') cerrarOverlay();
   });

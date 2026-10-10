@@ -7,7 +7,7 @@ const poemas = [
   {
     "titulo": "Contigo",
     "autor": "Luis Cernuda",
-    "html": "<p>¿Mi tierra?</p><p>Mi tierra eres tú.</p><p>¿Mi gente?</p><p>Mi gente eres tú.</p><p>El destierro y la muerte</p><p>para mi están adonde</p><p>no estés tú.</p><p>¿Y mi vida?</p><p>Deja, que no vea</p><p>Mientras me quieras eres</p><p>para mi cuanto me falta.</p>"
+    "html": "<p>Mi tierra?</p><p>Mi tierra eres tú.</p><p>Mi gente?</p><p>Mi gente eres tú.</p><p>El destierro y la muerte</p><p>para mi están adonde</p><p>no estés tú.</p><p>Y mi vida?</p><p>Deja, que no vea</p><p>Mientras me quieras eres</p><p>para mi cuanto me falta.</p>"
   },
   {
     "titulo": "Te quiero",
@@ -51,43 +51,40 @@ const poemas = [
   }
 ];
 
-// Elementos del DOM
 const vistaAlbum = document.getElementById('vista-album');
 const vistaMenu = document.getElementById('vista-menu');
 const overlay = document.getElementById('overlay-poema');
 const hoja = document.getElementById('contenido-hoja');
 const listaPoemas = document.getElementById('lista-poemas');
 
-// Inicializar lista de poemas
 function inicializarPoemas() {
-  listaPoemas.innerHTML = poemas.map((p, i) =>
-    `<li>
-      <button class="item-poema" onclick="abrirPoema(${i})">
-        <span class="adorno">❦</span>
-        <span class="item-poema-texto">
-          <span class="item-poema-titulo">${escapeHtml(p.titulo)}</span>
-          <span class="item-poema-autor">${escapeHtml(p.autor)}</span>
-        </span>
-      </button>
-    </li>`
-  ).join('');
+  if (listaPoemas) {
+    listaPoemas.innerHTML = poemas.map((p, i) =>
+      `<li>
+        <button class="item-poema" onclick="abrirPoema(${i})">
+          <span class="adorno">❦</span>
+          <span class="item-poema-texto">
+            <span class="item-poema-titulo">${escapeHtml(p.titulo)}</span>
+            <span class="item-poema-autor">${escapeHtml(p.autor)}</span>
+          </span>
+        </button>
+      </li>`
+    ).join('');
+  }
 }
 
-// Prevenir XSS
 function escapeHtml(text) {
   const div = document.createElement('div');
   div.textContent = text;
   return div.innerHTML;
 }
 
-// Navegar a menú
 function irAMenu() {
   vistaAlbum.style.display = 'none';
   vistaMenu.style.display = 'block';
   window.scrollTo(0, 0);
 }
 
-// Volver a álbum
 function irAAlbum() {
   vistaMenu.style.display = 'none';
   vistaAlbum.style.display = 'block';
@@ -95,7 +92,10 @@ function irAAlbum() {
   window.scrollTo(0, 0);
 }
 
-// Abrir poema en overlay
+function irACarta() {
+  window.location.href = 'carta.html';
+}
+
 function abrirPoema(i) {
   const p = poemas[i];
   if (!p) return;
@@ -114,15 +114,12 @@ function abrirPoema(i) {
   overlay.classList.add('abierto');
 }
 
-// Cerrar overlay
 function cerrarOverlay() {
   overlay.classList.remove('abierto');
 }
 
-// Cerrar con tecla Escape
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') cerrarOverlay();
 });
 
-// Inicializar cuando carga el DOM
 document.addEventListener('DOMContentLoaded', inicializarPoemas);

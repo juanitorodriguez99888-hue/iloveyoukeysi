@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<audio id="musica-fondo" autoplay loop>
+<audio id="musica-fondo" autoplay muted loop>
   <source src="cancion.mp3" type="audio/mpeg">
 </audio>
 
@@ -132,6 +132,14 @@
 <div id="overlay-poema">
   <div class="hoja" id="contenido-hoja"></div>
 </div>
+
+<script>
+  const audio = document.getElementById('musica-fondo');
+  audio.volume = 0.5;
+  audio.play().catch(() => {
+    console.log('Autoplay bloqueado por el navegador');
+  });
+</script>
 
 <script src="js/script.js"></script>
 </body>

@@ -110,14 +110,13 @@
 
     <div class="seccion-musica">
       <div class="musica-header">
-        <span class="musica-icono">🎵</span>
         <h2>Nuestra canción</h2>
       </div>
       <div class="reproductor-video">
         <iframe 
           width="100%" 
           height="360" 
-          src="https://www.youtube.com/embed/5_O2IVhJVOw?si=HGN9WRR4_IuydqCV" 
+          src="https://www.youtube.com/embed/5_O2IVhJVOw?si=HGN9WRR4_IuydqCV&autoplay=1" 
           title="YouTube video player" 
           frameborder="0" 
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -127,8 +126,8 @@
     </div>
 
     <div class="btn-menu-wrap">
-      <button class="btn-ornado" onclick="irAMenu()">📖 Poemas</button>
-      <button class="btn-ornado btn-carta" onclick="irACarta()">💌 Carta</button>
+      <button class="btn-ornado" onclick="irAMenu()">Poemas</button>
+      <button class="btn-ornado" onclick="irACarta()">Carta</button>
     </div>
   </div>
 
@@ -139,17 +138,6 @@
     </div>
 
     <ul class="lista-poemas" id="lista-poemas"></ul>
-  </div>
-
-  <div id="vista-carta">
-    <button class="volver-album" onclick="irAAlbum()">← volver</button>
-    <div class="header" style="margin-bottom:30px;">
-      <h1 style="font-size:26px;">💌 Una carta para ti</h1>
-    </div>
-
-    <div class="pagina-libro carta-vacia">
-      <p>Próximamente...</p>
-    </div>
   </div>
 
 </div>

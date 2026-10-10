@@ -1,0 +1,401 @@
+:root {
+  --ink: #F9DCE5;
+  --ink-2: #EBC4D0;
+  --paper: #F1E6D2;
+  --paper-2: #E8D9BF;
+  --text-on-ink: #4A2630;
+  --text-on-paper: #2B2118;
+  --gold: #B8924A;
+  --rose: #A44A3F;
+  --muted: #8F6570;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--ink);
+  background-image:
+    radial-gradient(ellipse at 20% -10%, rgba(184, 146, 74, 0.12), transparent 55%),
+    radial-gradient(ellipse at 100% 110%, rgba(164, 74, 63, 0.10), transparent 50%);
+  color: var(--text-on-ink);
+  font-family: 'Literata', Georgia, 'Times New Roman', serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.stage {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 56px 24px 96px;
+  position: relative;
+}
+
+h1, h2, h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.header .eyebrow-ornament {
+  color: var(--gold);
+  font-size: 20px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.header h1 {
+  font-size: clamp(28px, 6vw, 38px);
+  letter-spacing: 0.01em;
+  color: var(--text-on-ink);
+}
+
+.header p {
+  margin-top: 10px;
+  color: var(--muted);
+  font-style: italic;
+  font-size: 16px;
+}
+
+/* Fotos */
+.fotos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 22px;
+  margin-bottom: 56px;
+  padding: 0 10px;
+}
+
+.foto {
+  width: 150px;
+  height: 190px;
+  background: var(--paper);
+  border: 6px solid var(--paper);
+  border-bottom-width: 26px;
+  border-radius: 2px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-on-paper);
+  font-family: 'Fraunces', serif;
+  font-size: 13px;
+  text-align: center;
+  padding: 6px;
+  overflow: hidden;
+}
+
+.foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.foto:nth-child(1) {
+  transform: rotate(-4deg);
+}
+
+.foto:nth-child(2) {
+  transform: rotate(3deg);
+  margin-top: 14px;
+}
+
+.foto:nth-child(3) {
+  transform: rotate(-2deg);
+  margin-top: 6px;
+}
+
+.foto:nth-child(4) {
+  transform: rotate(4deg);
+}
+
+.foto-ancha {
+  width: 236px;
+  height: 150px;
+}
+
+.foto-ancha img {
+  object-fit: contain;
+  background: #0e1a13;
+}
+
+/* Página Libro */
+.pagina-libro {
+  background: var(--paper);
+  color: var(--text-on-paper);
+  border-radius: 3px;
+  padding: 44px 38px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+
+.pagina-libro::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 14px;
+  bottom: 14px;
+  width: 3px;
+  background: linear-gradient(180deg, transparent, rgba(43, 33, 24, 0.18), transparent);
+}
+
+.pagina-libro h2 {
+  font-size: 22px;
+  margin-bottom: 18px;
+  color: var(--rose);
+}
+
+.poema {
+  font-size: 17.5px;
+  line-height: 1.85;
+  max-width: 46ch;
+  margin: 0 auto;
+}
+
+.poema p {
+  margin: 0 0 1.1em;
+}
+
+.poema .capitular::first-letter {
+  font-family: 'Fraunces', serif;
+  font-size: 3.1em;
+  line-height: 0.8;
+  float: left;
+  padding: 6px 8px 0 0;
+  color: var(--rose);
+}
+
+/* Botones */
+.btn-menu-wrap {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.btn-ornado {
+  font-family: 'Fraunces', serif;
+  background: none;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 12px 28px;
+  border-radius: 2px;
+  font-size: 15px;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.btn-ornado:hover {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+.btn-ornado:focus-visible {
+  outline: 2px solid var(--text-on-ink);
+  outline-offset: 3px;
+}
+
+/* Vista Menú */
+#vista-menu {
+  display: none;
+}
+
+.volver-album {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-family: 'Literata', serif;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 28px;
+  padding: 0;
+}
+
+.volver-album:hover {
+  color: var(--text-on-ink);
+}
+
+.lista-poemas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.item-poema {
+  background: transparent;
+  border: none;
+  border-top: 1px solid rgba(237, 230, 214, 0.15);
+  color: var(--text-on-ink);
+  text-align: left;
+  padding: 20px 6px;
+  font-family: 'Fraunces', serif;
+  font-size: 19px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  width: 100%;
+}
+
+.item-poema-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.item-poema-autor {
+  font-family: 'Literata', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.lista-poemas li:last-child .item-poema {
+  border-bottom: 1px solid rgba(237, 230, 214, 0.15);
+}
+
+.item-poema .adorno {
+  color: var(--rose);
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.item-poema:hover {
+  color: var(--gold);
+}
+
+.item-poema:hover .adorno {
+  color: var(--gold);
+}
+
+/* Overlay */
+#overlay-poema {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 14, 11, 0.82);
+  z-index: 20;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+#overlay-poema.abierto {
+  display: flex;
+}
+
+.hoja {
+  background: var(--paper);
+  color: var(--text-on-paper);
+  max-width: 560px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  border-radius: 3px;
+  padding: 46px 40px;
+  position: relative;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+  transform: scale(0.94) rotateX(4deg);
+  opacity: 0;
+  animation: abrirLibro 0.45s ease forwards;
+}
+
+@keyframes abrirLibro {
+  to {
+    transform: scale(1) rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hoja {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.cerrar-x {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--text-on-paper);
+  cursor: pointer;
+  opacity: 0.55;
+  padding: 6px;
+}
+
+.cerrar-x:hover {
+  opacity: 1;
+}
+
+.hoja h3 {
+  font-size: 22px;
+  color: var(--rose);
+  margin-bottom: 4px;
+  padding-right: 24px;
+}
+
+.autor-poema {
+  font-family: 'Literata', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: rgba(43, 33, 24, 0.6);
+  margin: 0 0 22px;
+}
+
+.hoja .poema {
+  font-size: 17px;
+}
+
+.acciones-hoja {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  border-top: 1px solid rgba(43, 33, 24, 0.15);
+  padding-top: 20px;
+}
+
+.btn-secundario {
+  background: none;
+  border: 1px solid rgba(43, 33, 24, 0.4);
+  color: var(--text-on-paper);
+  font-family: 'Literata', serif;
+  font-size: 14px;
+  padding: 9px 18px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.btn-secundario:hover {
+  border-color: var(--text-on-paper);
+}
+
+footer.nota {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12.5px;
+  margin-top: 60px;
+  font-style: italic;
+}

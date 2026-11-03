@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Musica:3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Literata:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#F9DCE5;
+    --ink-2:#EBC4D0;
+    --paper:#F1E6D2;
+    --paper-2:#E8D9BF;
+    --text-on-ink:#4A2630;
+    --text-on-paper:#2B2118;
+    --gold:#B8924A;
+    --rose:#A44A3F;
+    --muted:#8F6570;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--ink);
+    background-image:
+      radial-gradient(ellipse at 20% -10%, rgba(184,146,74,0.12), transparent 55%),
+      radial-gradient(ellipse at 100% 110%, rgba(164,74,63,0.10), transparent 50%);
+    color:var(--text-on-ink);
+    font-family:'Literata', Georgia, 'Times New Roman', serif;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .stage{
+    max-width:640px;
+    margin:0 auto;
+    padding:56px 24px 96px;
+    position:relative;
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight:600;
+    margin:0;
+  }
+
+  .header{
+    text-align:center;
+    margin-bottom:48px;
+  }
+  .header .eyebrow-ornament{
+    color:var(--gold);
+    font-size:20px;
+    display:block;
+    margin-bottom:10px;
+  }
+  .header h1{
+    font-size:clamp(28px,6vw,38px);
+    letter-spacing:0.01em;
+    color:var(--text-on-ink);
+  }
+  .header p{
+    margin-top:10px;
+    color:var(--muted);
+    font-style:italic;
+    font-size:16px;
+  }
+
+  .fotos{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:22px;
+    margin-bottom:56px;
+    padding:0 10px;
+  }
+  .foto{
+    width:150px;
+    height:190px;
+    background:var(--paper);
+    border:6px solid var(--paper);
+    border-bottom-width:26px;
+    border-radius:2px;
+    box-shadow:0 10px 22px rgba(0,0,0,0.35);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--text-on-paper);
+    font-family:'Fraunces', serif;
+    font-size:13px;
+    text-align:center;
+    padding:6px;
+    overflow:hidden;
+  }
+  .foto img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .foto:nth-child(1){ transform:rotate(-4deg); }
+  .foto:nth-child(2){ transform:rotate(3deg); margin-top:14px; }
+  .foto:nth-child(3){ transform:rotate(-2deg); margin-top:6px; }
+  .foto:nth-child(4){ transform:rotate(4deg); }
+
+  .foto-ancha{
+    width:236px;
+    height:150px;
+  }
+  .foto-ancha img{
+    object-fit:contain;
+    background:#0e1a13;
+  }
+
+  .pagina-libro{
+    background:var(--paper);
+    color:var(--text-on-paper);
+    border-radius:3px;
+    padding:44px 38px;
+    box-shadow:0 18px 40px rgba(0,0,0,0.4);
+    position:relative;
+  }
+  .pagina-libro::before{
+    content:"";
+    position:absolute;
+    left:0; top:14px; bottom:14px;
+    width:3px;
+    background:linear-gradient(180deg, transparent, rgba(43,33,24,0.18), transparent);
+  }
+  .pagina-libro h2{
+    font-size:22px;
+    margin-bottom:18px;
+    color:var(--rose);
+  }
+  .poema{
+    font-size:17.5px;
+    line-height:1.85;
+    max-width:46ch;
+    margin:0 auto;
+  }
+  .poema p{ margin:0 0 1.1em; }
+  .poema .capitular::first-letter{
+    font-family:'Fraunces', serif;
+    font-size:3.1em;
+    line-height:0.8;
+    float:left;
+    padding:6px 8px 0 0;
+    color:var(--rose);
+  }
+
+  .btn-menu-wrap{
+    text-align:center;
+    margin-top:40px;
+  }
+  .btn-ornado{
+    font-family:'Fraunces', serif;
+    background:none;
+    border:1px solid var(--gold);
+    color:var(--gold);
+    padding:12px 28px;
+    border-radius:2px;
+    font-size:15px;
+    cursor:pointer;
+    letter-spacing:0.02em;
+    transition:background 0.25s ease, color 0.25s ease;
+  }
+  .btn-ornado:hover{
+    background:var(--gold);
+    color:var(--ink);
+  }
+  .btn-ornado:focus-visible{
+    outline:2px solid var(--text-on-ink);
+    outline-offset:3px;
+  }
+
+  #vista-menu{ display:none; }
+  .volver-album{
+    background:none;
+    border:none;
+    color:var(--muted);
+    font-family:'Literata', serif;
+    font-size:14px;
+    cursor:pointer;
+    margin-bottom:28px;
+    padding:0;
+  }
+  .volver-album:hover{ color:var(--text-on-ink); }
+
+  .lista-poemas{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+  .item-poema{
+    background:transparent;
+    border:none;
+    border-top:1px solid rgba(237,230,214,0.15);
+    color:var(--text-on-ink);
+    text-align:left;
+    padding:20px 6px;
+    font-family:'Fraunces', serif;
+    font-size:19px;
+    cursor:pointer;
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    width:100%;
+  }
+  .item-poema-texto{
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+  }
+  .item-poema-autor{
+    font-family:'Literata', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--muted);
+  }
+  .lista-poemas li:last-child .item-poema{
+    border-bottom:1px solid rgba(237,230,214,0.15);
+  }
+  .item-poema .adorno{ color:var(--rose); font-size:14px; margin-top:5px; }
+  .item-poema:hover{ color:var(--gold); }
+  .item-poema:hover .adorno{ color:var(--gold); }
+
+  #overlay-poema{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(10,14,11,0.82);
+    z-index:20;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+  #overlay-poema.abierto{ display:flex; }
+
+  .hoja{
+    background:var(--paper);
+    color:var(--text-on-paper);
+    max-width:560px;
+    width:100%;
+    max-height:85vh;
+    overflow-y:auto;
+    border-radius:3px;
+    padding:46px 40px;
+    position:relative;
+    box-shadow:0 30px 60px rgba(0,0,0,0.5);
+    transform:scale(0.94) rotateX(4deg);
+    opacity:0;
+    animation:abrirLibro 0.45s ease forwards;
+  }
+  @keyframes abrirLibro{
+    to{ transform:scale(1) rotateX(0deg); opacity:1; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hoja{ animation:none; opacity:1; transform:none; }
+  }
+
+  .cerrar-x{
+    position:absolute;
+    top:14px; right:16px;
+    background:none;
+    border:none;
+    font-size:22px;
+    line-height:1;
+    color:var(--text-on-paper);
+    cursor:pointer;
+    opacity:0.55;
+    padding:6px;
+  }
+  .cerrar-x:hover{ opacity:1; }
+
+  .hoja h3{
+    font-size:22px;
+    color:var(--rose);
+    margin-bottom:4px;
+    padding-right:24px;
+  }
+  .autor-poema{
+    font-family:'Literata', serif;
+    font-style:italic;
+    font-size:14px;
+    color:rgba(43,33,24,0.6);
+    margin:0 0 22px;
+  }
+  .hoja .poema{ font-size:17px; }
+
+  .acciones-hoja{
+    margin-top:30px;
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    border-top:1px solid rgba(43,33,24,0.15);
+    padding-top:20px;
+  }
+  .btn-secundario{
+    background:none;
+    border:1px solid rgba(43,33,24,0.4);
+    color:var(--text-on-paper);
+    font-family:'Literata', serif;
+    font-size:14px;
+    padding:9px 18px;
+    border-radius:2px;
+    cursor:pointer;
+  }
+  .btn-secundario:hover{ border-color:var(--text-on-paper); }
+
+  footer.nota{
+    text-align:center;
+    color:var(--muted);
+    font-size:12.5px;
+    margin-top:60px;
+    font-style:italic;
+  }
+
+  .btn-menu-wrap{ display:flex; flex-wrap:wrap; justify-content:center; gap:14px; }
+  a.btn-ornado{ display:inline-block; text-decoration:none; }
+  #btn-musica{
+    position:fixed; right:16px; bottom:calc(16px + env(safe-area-inset-bottom, 0px));
+    width:44px; height:44px; border-radius:50%; z-index:30;
+    background:var(--ink); border:1px solid var(--gold); color:var(--gold);
+    font-size:18px; cursor:pointer; transition:opacity .25s ease;
+  }
+  #btn-musica.apagada{ opacity:.5; }
+  .fotos .foto.l1{ width:240px; height:206px; }
+  .fotos .foto.l2{ width:264px; height:179px; }
+  .fotos .foto.l3{ width:192px; height:170px; }
+  .fotos .foto.p1{ width:174px; height:244px; }
+  .fotos .foto.p2{ width:138px; height:196px; }
+  .fotos .foto.p3{ width:200px; height:279px; }
+  .fotos .foto.ra{ transform:rotate(-4deg); }
+  .fotos .foto.rb{ transform:rotate(3deg); }
+  .fotos .foto.rc{ transform:rotate(-2deg); }
+  .fotos .foto.rd{ transform:rotate(5deg); }
+  .fotos .foto.re{ transform:rotate(-6deg); }
+  .fotos .foto.o0{ margin-top:0; }
+  .fotos .foto.o1{ margin-top:22px; }
+  .fotos .foto.o2{ margin-top:-10px; }
+  .fotos .foto.o3{ margin-top:36px; }
+  .fotos.abajo{ margin:56px 0 0; }
+  .pagina-libro .poema{ font-size:19px; }
+  .vol{ position:sticky; top:10px; z-index:5; display:flex; align-items:center; gap:12px; padding:8px 18px; margin-bottom:18px; border:1px solid var(--gold); border-radius:999px; background:rgba(249,220,229,0.72); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
+  .vol label{ font-size:14px; color:var(--muted); white-space:nowrap; }
+  .vol input{ flex:1; accent-color:var(--gold); }
+  .dedicatoria{ border:1px solid var(--gold); border-radius:3px; padding:22px 24px; margin-bottom:34px; text-align:center; font-style:italic; line-height:1.7; }
+  .dedicatoria p{ margin:0; }
+  .reproductor{ display:flex; align-items:center; gap:14px; margin:6px 0 22px; }
+  .reproductor input{ flex:1; accent-color:var(--gold); min-width:0; }
+  .reproductor span{ font-size:13px; color:var(--muted); min-width:84px; text-align:right; }
+  .cartita{ background:var(--paper); color:var(--text-on-paper); max-width:420px; margin:38px auto 0; padding:24px 26px; border-radius:3px; text-align:center; font-style:italic; line-height:1.7; transform:rotate(-1.5deg); box-shadow:0 10px 22px rgba(0,0,0,0.25); }
+  .cartita::before{ content:"❦"; display:block; color:var(--rose); font-style:normal; margin-bottom:8px; }
+  .cartita p{ margin:0; }
+  #vista-lista .header{ margin-bottom:28px; }
+  #vista-cancion .header{ margin-bottom:26px; }
+  #vista-cancion .btn-menu-wrap{ margin-top:32px; }
+  .video{ position:relative; width:100%; aspect-ratio:16/9; background:#000; border-radius:3px; overflow:hidden; box-shadow:0 14px 30px rgba(0,0,0,0.3); margin-bottom:18px; }
+  .video iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .aviso-video{ text-align:center; font-style:italic; color:var(--muted); margin:0 0 16px; }
+  .aviso-video a{ color:var(--rose); }
+  .pagina-libro .motivo{ font-size:18px; line-height:1.85; }
+  .motivo p{ margin:0; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="vol">
+    <label for="vol">♪ volumen</label>
+    <input id="vol" type="range" min="0" max="100" value="70">
+  </div>
+
+  <div id="vista-lista">
+    <button class="volver-album" onclick="location.href='index.html'">← volver a la carta</button>
+    <div class="header">
+      <span class="eyebrow-ornament">❦</span>
+      <h1>Musica para mi kessito :3</h1>
+    </div>
+    <div class="dedicatoria">
+      <p>Te hago esto porque estas canciones me recuerdan a ti y me gustaria mostrarte lo que siento cuando las escucho y pienso en ti cada cancion dice masomenos lo que siento aunque no puedo explicarlo bien por eso escuchalo jeje, te amo tanto tantisimo corazon:3</p>
+    </div>
+    <ul class="lista-poemas" id="lista"></ul>
+  </div>
+
+  <div id="vista-cancion" hidden>
+    <div class="header">
+      <h1 id="c-titulo"></h1>
+      <p id="c-artista"></p>
+    </div>
+    <div class="video"><div id="yt"></div></div>
+    <p class="aviso-video" id="aviso" hidden>Este video no se puede mostrar aquí. <a id="abrir-yt" target="_blank" rel="noopener">Abrir en YouTube</a></p>
+    <div class="reproductor">
+      <button class="btn-ornado" id="btn-play">▶ Reproducir</button>
+      <input id="seek" type="range" min="0" max="1000" value="0">
+      <span id="tiempo">0:00 / 0:00</span>
+    </div>
+    <div class="pagina-libro">
+      <div class="poema motivo"><p class="capitular" id="motivo"></p></div>
+    </div>
+    <div class="btn-menu-wrap">
+      <button class="btn-ornado" id="btn-volver">Volver a la música</button>
+      <a class="btn-ornado" href="index.html">Volver a la carta</a>
+    </div>
+    <div class="cartita" id="cartita" hidden><p id="cartita-texto"></p></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var CANCIONES = [
+ {
+  "id": "allende",
+  "titulo": "Allende",
+  "artista": "Ataquemos",
+  "vid": "u9oTCZFlNng",
+  "texto": "Corazon escogi esta cancion para ti porque amo esta cancion casi igual que a ti pero no tanto jeje:3 me genera una paz y tranquilidad aparte que la letra me gusta porque describe lo que siento me convence la tranquilidad que vas a estar, y tambien tambien de todo lo que quiero decirte y aveces no puedo y tambien que me haces tanto osea que haces tanto en mi corazoncito jeje teamo:3"
+ },
+ {
+  "id": "flor",
+  "titulo": "Flor",
+  "artista": "Lio Petricor",
+  "vid": "8wtuSxB9f6g",
+  "texto": "Escogi esta porque se que te gusta mucho lio y pues tambien porque me gusta porque refleja como me enamore al verte y al convivir conmigo y el como me besaste el dia que te pedi ser mi novia jeje tambien porque siempre quiero que me beses mas y que me des tu intensidad jeje te amo:3"
+ },
+ {
+  "id": "allmyloving",
+  "titulo": "All My Loving",
+  "artista": "The Beatles",
+  "vid": "TSpiwK5fig0",
+  "texto": "Escogi esta porque the beatles siempre ah sido mi banda favorita y pues es muy lindo recordarte en sus canciones de amor y ademas refleja como yo quiero y te doy todo mi amor aunque este lejos siempre tendras mi amor y siempre te esperare jeje te amo musho:3",
+  "carta": "Mi niña te amo demasiado y te entrego todo mi corazoncito jeje te amo un monton mi niña"
+ },
+ {
+  "id": "contigo",
+  "titulo": "Contigo",
+  "artista": "Ataquemos",
+  "vid": "muErZVFnHCc",
+  "texto": "Esta la escogi por lo que refleja la letra, tan solo el \"Contigo\" ya es increible, contigo la historia del mundo es hermosa y tambien porque quiero conocerte, aprender de ti, conocer tus limites y hacerte bien, que pienses que fue la mejor decision escogerme y la verdad eso espero jeje te amo y siempre quiero estar CONTIGO sjsjs:3"
+ },
+ {
+  "id": "tucorazon",
+  "titulo": "Tu corazón",
+  "artista": "Ataquemos",
+  "vid": "p4OVr3SeSXU",
+  "texto": "Escogi esta cancion porque me gusta la parte que dice \"Debo admitir que me asustaba tu corazon\", y si, me asustaba siempre me dijieron cosas de ti que hasta ahora y desde que comenzamos a ser novios me demostraste lo contrario y siempre confiare en ti y no tendre miedo asi que \"Por fin, déjame darte lo que pueda\" jeje te amo:3"
+ },
+ {
+  "id": "salvia",
+  "titulo": "Salvia",
+  "artista": "Ataquemos",
+  "vid": "Fwg2A1iAxzQ",
+  "texto": "Escogi salvia por dos cosas, la primera porque fue la primera cancion de ataquemos que escuche y tu sabes que amo ataquemos y desde ahi comenzo mi amor por la banda, y la otra es porque, la letra es exactamente lo que siento, porque sin pensar eres mis sueños mas profundos, aquello que no puedo ocultar aunque quiera y se que aunque pueda no quiero ocupar mi mente en nadie mas, jeje te amo musho colazon:3"
+ },
+ {
+  "id": "intento",
+  "titulo": "Intento 2: piénsalo bien",
+  "artista": "Ataquemos",
+  "vid": "eNBe7W_B9eY",
+  "texto": "Escogi esta cancion porque la letra es lo que quiero que pase, quiero conocer cada punto, cada detalle que no eh podido ignorar y cada sombra de tu pelo, eso es lo que quiero, esa cancion me hace sentir tan bien porque la escucho y automaticamente pienso en ti y pues realmente quiero conocer detalles tuyos que nadie mas quiso ver jeje te amo:3"
+ },
+ {
+  "id": "tusojos",
+  "titulo": "Tus ojos",
+  "artista": "Ataquemos",
+  "vid": "lsUvg9kmdqU",
+  "texto": "Wow esta cancion es increible refleja exactamente lo que me pasa y lo que pienso cada que te veo, aunque dices que te veo feo es todo lo contrario me encanta mirarte, observarte y sorprenderme de lo linda que eres porque yo me sorprendo de encontrarte, ay tan perfecta que me extraña que nunca nadie se haya visto reflejado, ay en tus ojos, ay tus ojos, tan lindos, te amo tanto jeje:3"
+ },
+ {
+  "id": "cuentame",
+  "titulo": "Cuéntame tu vida",
+  "artista": "Caifanes",
+  "vid": "KlfftQ1jUeA",
+  "texto": "Esta cancion es un poco diferente a las demas pero la escogi porque, como dice la letra, quiero que me cuentes tu vida, que me la cuentes toda, cada detalle, cada pequeña cosa, y el solo de esta cancion me hace sentir como si tu estuvieras conmigo es super lindo e increible enserio tu eres tan hermosa como este solo jeje te amo:3"
+ },
+ {
+  "id": "mariposas",
+  "titulo": "Mariposas",
+  "artista": "Enanitos Verdes",
+  "vid": "0ITLTAyrP10",
+  "texto": "Esta cancion la puse porque wow es tan yo jajajaja esque mi niña yo daria lo mejor de mi vida por ti, contigo soy todo y podria cambiar al mundo y sin ti no tengo nada, quedate conmigo corazon, te amo tanto:3",
+  "carta": "Mi niña esta cancion refleja lo que siento por ti, si estas tu soy todo y me siento bien y si no, no soy nada, jeje te amo tanto:3"
+ },
+ {
+  "id": "quierover",
+  "titulo": "Quiero ver",
+  "artista": "Café Tacvba",
+  "vid": "VOJ0XhTBa20",
+  "texto": "Esta cancion la escogi porque pues como lo dice, Quiero ver tu risa todo el dia, quiero ser el brillo de tus ojos y ademas corazon prometo regalarte sin reparo mi corazon y prometo tratar de no hacerte daño, corazon esta cancion es muy especial jsjs no necesito muchas palabras con que la escuches sabras porque me gusta te amo jeje:3"
+ },
+ {
+  "id": "iloveher",
+  "titulo": "And I Love Her",
+  "artista": "The Beatles",
+  "vid": "5tc0gLSSU1M",
+  "texto": "Corazon esta cancion es demasiado especial para mi es la primera que escuche de the beatles y the beatles es una banda muy importante para mi ya que la escuche desde como los 10 años y pues esta cancion me encanta me hace sentir mucho amor me hace acordarme de lo enamorado que estoy de ti y como lo dice \"I give her all my love\" esa cancion es para ti, a ti solo a ti te entrego todo mi amor y te amo:3"
+ },
+ {
+  "id": "chaleco",
+  "titulo": "Chaleco",
+  "artista": "Ataquemos",
+  "vid": "b1rDyZNbEks",
+  "texto": "Esta cancion es muy especial, me hace llorar me recuerda lo increible que es estar contigo y refleja la paciencia que tengo para esperarte obviamente solo a ti, y yo siempre te esperare y soy feliz mientras me quieras y no me puedo olvidar de las fotos que tome jeje, escucha esta mucho me encanta esta cancion te amo tanto:3"
+ },
+ {
+  "id": "cuculi",
+  "titulo": "Cuculí",
+  "artista": "Ataquemos",
+  "vid": "t-EZ5LCTtOc",
+  "texto": "Esta cancion la escogi porque es de mis favoritas de ataquemos, me gusta mucho y refleja lo que me haces sentir, como lo dice \"Me das motivos y mas ganas de seguir, hacernos bien y crecer cerca de ti\" literalmente es todo lo que quiero contigo, esta tambien escuchala mucho te amo tanto:3"
+ },
+ {
+  "id": "valdivia",
+  "titulo": "Valdivia",
+  "artista": "Ataquemos",
+  "vid": "uJKnNbPtWq8",
+  "texto": "Esta cancion me transmite tranquilidad, paz el querer vivir contigo siendo tu y yo , con eso mi vida tiene paz, amarte por siempre, y tambien refleja cosas que hago, porque me gusta estar muy atento de tu voz y tu tiempo y voy a ahorrar con mi sueldo y poder darte todo sjjsjsjs esta es muy bonita, te amo corazon:3"
+ },
+ {
+  "id": "quedate",
+  "titulo": "Quédate",
+  "artista": "Ataquemos",
+  "vid": "USBK3hXfHms",
+  "texto": "Uy ya solo con el titulo creo que sabes lo que me transmite, pero si no te queda muy claro, me transmite esa sensacion de querer que te qudes para siempre y por eso siempre quiero que lo hagas, como lo dice \"Encuentro tanto en tu mirada en tus brazos me aguardo y encuentro mi voz\" ya con eso corazon entenderas todo, sjjsjs te amo tanto mi niña:3",
+  "carta": "Mi niña quedate, enserio es lo que mas deseo jeje quedate a mi lado por siempre, te amo muack:3"
+ },
+ {
+  "id": "abrazame",
+  "titulo": "Abrázame",
+  "artista": "Vestigio",
+  "vid": "eLaeDw1HBQQ",
+  "texto": "Esta cancion me gusta mucho, y me dijiste que a ti tambien te gusto mucho y pues la verdad es increible como esta letra sea tan real y sea lo que siento, a veces me siento mal que dices que pues antes con tus otras relaciones fue extraño y casi no habia tanta comunicacion y es lo que me duele como sufriste sin mi, sin que te este acompañando, por eso nunca te dejare sola mi niña siempre estare para ti y si \"Hoy sali a caminar y no encontre una chica mas linda que tu \", jsjsjsj te amo tanto mi niña espero siempre seas tu muack:3"
+ },
+ {
+  "id": "compliceeterno",
+  "titulo": "Cómplice eterno",
+  "artista": "Pablo Rico",
+  "vid": "5_O2IVhJVOw",
+  "texto": "Esta cancion la escogi porque desde que me la mostraste me gusto mucho y porque yo quiero ser tu complice eterno jeje esta cancion me hace sentir feliz, como que digo wow que increible novia tengo sjajsjjas, no tengo tanto que decir de esta cancion :( te amo tanto corazon:3"
+ },
+ {
+  "id": "ififell",
+  "titulo": "If I Fell",
+  "artista": "The Beatles",
+  "vid": "F_80s6S_7Vw",
+  "texto": "Esta la escogi porque me gusta mucho y porque es algo que tuve duda cuando empezamos a ser novios, \"SI me enamoro de ti prometerias ser sincera y ayudarme a entender? porque estuve enamorado antes\" y mi niña creeme que todo lo que paso antes quedo obsoleto porque tu me ayudas a entender porque importa mas el presente que el pasado, te amo tanto:3"
+ },
+ {
+  "id": "kyedae",
+  "titulo": "Kyedae",
+  "artista": "Ataquemos",
+  "vid": "b7zaI3HvTBA",
+  "texto": "Esta cancion te conte porque me gusta, refleja para mi lo que vivimos antes de ser novios y un poco cuando empezamos, los dos dudabamos pero poco a poco se fue creando esa confianza que quiero que siempre tengas enserio te amo tanto corazon:3"
+ }
+];
+  var $ = function(id){ return document.getElementById(id); };
+  var vol = $('vol'), seek = $('seek'), tiempo = $('tiempo'), btnPlay = $('btn-play');
+  var player = null, apiLista = false, actual = null, timer = null;
+
+  function fmt(s){
+    if(!isFinite(s)) return '0:00';
+    var m = Math.floor(s / 60), r = Math.floor(s % 60);
+    return m + ':' + (r < 10 ? '0' : '') + r;
+  }
+  function volumen(){ if(player && player.setVolume) player.setVolume(parseInt(vol.value, 10)); }
+  function estado(){
+    var st = player && player.getPlayerState ? player.getPlayerState() : -1;
+    btnPlay.textContent = st === 1 ? '❚❚ Pausar' : '▶ Reproducir';
+  }
+  function tic(){
+    if(!player || !player.getDuration) return;
+    var d = player.getDuration() || 0, t = player.getCurrentTime() || 0;
+    if(d) seek.value = Math.round(t / d * 1000);
+    tiempo.textContent = fmt(t) + ' / ' + fmt(d);
+  }
+  function crear(){
+    player = new YT.Player('yt', {
+      videoId: actual.vid,
+      playerVars: {controls:0, rel:0, modestbranding:1, playsinline:1, disablekb:1, iv_load_policy:3},
+      events: {
+        onReady: function(){ volumen(); estado(); },
+        onStateChange: estado,
+        onError: function(){ $('aviso').hidden = false; }
+      }
+    });
+  }
+  window.onYouTubeIframeAPIReady = function(){
+    apiLista = true;
+    if(actual && !player) crear();
+  };
+  var s = document.createElement('script');
+  s.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(s);
+
+  function abrir(i){
+    actual = CANCIONES[i];
+    $('c-titulo').textContent = actual.titulo;
+    $('c-artista').textContent = actual.artista;
+    $('motivo').textContent = actual.texto;
+    $('cartita').hidden = !actual.carta;
+    $('cartita-texto').textContent = actual.carta || '';
+    $('aviso').hidden = true;
+    $('abrir-yt').href = 'https://www.youtube.com/watch?v=' + actual.vid;
+    seek.value = 0;
+    tiempo.textContent = '0:00 / 0:00';
+    btnPlay.textContent = '▶ Reproducir';
+    $('vista-lista').hidden = true;
+    $('vista-cancion').hidden = false;
+    window.scrollTo(0, 0);
+    if(player && player.cueVideoById){ player.cueVideoById(actual.vid); }
+    else if(apiLista){ crear(); }
+    clearInterval(timer);
+    timer = setInterval(tic, 400);
+  }
+  function verLista(){
+    if(player && player.pauseVideo) player.pauseVideo();
+    clearInterval(timer);
+    $('vista-cancion').hidden = true;
+    $('vista-lista').hidden = false;
+    window.scrollTo(0, 0);
+  }
+
+  $('lista').innerHTML = CANCIONES.map(function(c, i){
+    return '<li><button class="item-poema" data-i="' + i + '"><span class="adorno">❦</span>' +
+      '<span class="item-poema-texto"><span class="item-poema-titulo">' + c.titulo + '</span>' +
+      '<span class="item-poema-autor">' + c.artista + '</span></span></button></li>';
+  }).join('');
+  $('lista').addEventListener('click', function(e){
+    var b = e.target.closest('button[data-i]');
+    if(b) abrir(parseInt(b.getAttribute('data-i'), 10));
+  });
+
+  vol.addEventListener('input', volumen);
+  btnPlay.addEventListener('click', function(){
+    if(!player || !player.getPlayerState) return;
+    if(player.getPlayerState() === 1) player.pauseVideo(); else player.playVideo();
+  });
+  seek.addEventListener('input', function(){
+    if(!player || !player.getDuration) return;
+    var d = player.getDuration();
+    if(d) player.seekTo(seek.value / 1000 * d, true);
+  });
+  $('btn-volver').addEventListener('click', verLista);
+})();
+</script>
+</body>
+</html>

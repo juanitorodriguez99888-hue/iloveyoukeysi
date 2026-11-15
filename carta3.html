@@ -58,6 +58,8 @@
   .btn-ornado{display:inline-block;text-decoration:none;font-family:'Fraunces',serif;background:none;border:1px solid var(--gold);color:var(--gold);padding:12px 28px;border-radius:2px;font-size:15px;letter-spacing:0.02em;transition:background 0.25s ease,color 0.25s ease;}
   .btn-ornado:hover{background:var(--gold);color:var(--ink);}
   .btn-ornado:focus-visible,.volver-album:focus-visible{outline:2px solid var(--text-on-ink);outline-offset:3px;}
+  #btn-musica{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom, 0px));width:44px;height:44px;border-radius:50%;z-index:30;background:var(--ink);border:1px solid var(--gold);color:var(--gold);font-size:18px;cursor:pointer;transition:opacity .25s ease;}
+  #btn-musica.apagada{opacity:.5;}
   @media(max-width:480px){.stage{padding:36px 18px 72px;}.pagina-libro{padding:34px 25px;}.foto{width:145px;height:190px;}}
 </style>
 </head>
@@ -96,5 +98,45 @@
     <a class="btn-ornado" href="carta2.html">Un mes juntos</a>
   </nav>
 </main>
+<audio id="musica" src="cancion.mp3" loop preload="auto"></audio>
+<button id="btn-musica" class="apagada" aria-label="Música" title="Activar o pausar música">♪</button>
+<script>
+(function(){
+  var audio = document.getElementById('musica');
+  var btn = document.getElementById('btn-musica');
+  audio.volume = 0.6;
+  var pausada = false;
+  try { pausada = sessionStorage.getItem('musica-pausada') === '1'; } catch(e){}
+  audio.addEventListener('loadedmetadata', function(){
+    try {
+      var t = parseFloat(sessionStorage.getItem('musica-t'));
+      if(!isNaN(t) && t < audio.duration) audio.currentTime = t;
+    } catch(e){}
+  });
+  audio.addEventListener('play', function(){ btn.classList.remove('apagada'); });
+  audio.addEventListener('pause', function(){ btn.classList.add('apagada'); });
+  audio.addEventListener('timeupdate', function(){
+    try { sessionStorage.setItem('musica-t', audio.currentTime); } catch(e){}
+  });
+  function esperarToque(){
+    var ev = ['pointerdown','touchend','keydown','click'];
+    function h(e){
+      if(btn.contains(e.target)) return;
+      ev.forEach(function(x){ document.removeEventListener(x, h); });
+      if(!pausada) audio.play().catch(function(){});
+    }
+    ev.forEach(function(x){ document.addEventListener(x, h); });
+  }
+  btn.addEventListener('click', function(){
+    if(audio.paused){ pausada = false; audio.play().catch(function(){}); }
+    else { pausada = true; audio.pause(); }
+    try { sessionStorage.setItem('musica-pausada', pausada ? '1' : '0'); } catch(e){}
+  });
+  if(!pausada){
+    var p = audio.play();
+    if(p && p.catch) p.catch(esperarToque);
+  }
+})();
+</script>
 </body>
 </html>
